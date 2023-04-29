@@ -51,9 +51,9 @@ jobs:
           platforms: linux/amd64,linux/386,linux/arm64,linux/arm/v7,linux/arm/v6,linux/s390x,linux/ppc64le
           push: true
           tags: |
-            neill/cloudflared:latest
-            neill/cloudflared:${{ steps.previoustag.outputs.tag }}
-            ghcr.io/neill/cloudflared:latest
-            ghcr.io/neill/cloudflared:${{ steps.previoustag.outputs.tag }}
+            neil1145/cloudflared
+            neil1145/cloudflared:${{ steps.previoustag.outputs.tag }}
+            ghcr.io/neil1145/cloudflared:latest
+            ghcr.io/neil1145/cloudflared:${{ steps.previoustag.outputs.tag }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
