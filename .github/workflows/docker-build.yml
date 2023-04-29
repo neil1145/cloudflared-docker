@@ -53,7 +53,7 @@ jobs:
           tags: |
             neil1145/cloudflared:latest
             neil1145/cloudflared:${{ steps.previoustag.outputs.tag }}
-            ghcr.io/neil1145/cloudflared:latest
-            ghcr.io/neil1145/cloudflared:${{ steps.previoustag.outputs.tag }}
+            ghcr.io/neill/cloudflared:latest
+            ghcr.io/neill/cloudflared:${{ steps.previoustag.outputs.tag }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
