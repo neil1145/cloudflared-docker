@@ -5,6 +5,9 @@ on:
 jobs:
   multi-arch-push:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       -
         name: Checkout
@@ -18,7 +21,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.GHCR_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       -
         name: Login to DockerHub
         uses: docker/login-action@v3
@@ -26,13 +29,19 @@ jobs:
           username: neil1145
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: Login to Harbor Registry
+        uses: docker/login-action@v3
+        with:
+          registry: harbor.marelmoras.in
+          username: ${{ secrets.HARBOR_USERNAME }}
+          password: ${{ secrets.HARBOR_PASSWORD }}
+      -
         name: Bake image
         uses: docker/bake-action@v6
         env:
-          MULTI_PLATFORM: false  # Single platform for faster testing
-          TAG_SUFFIX: -test       # Adds -test to image tags only
+          MULTI_PLATFORM: true
         with:
-          push: true  # TEMPORARILY ENABLE PUSH FOR TESTING
+          push: ${{ github.ref == 'refs/heads/main' }}
           set: |
             *.cache-from=type=gha
             *.cache-to=type=gha,mode=max

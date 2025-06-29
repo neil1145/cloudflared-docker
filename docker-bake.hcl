@@ -39,5 +39,6 @@ target "default" {
         "ghcr.io/neil1145/cloudflared:${CLOUDFLARED_VERSION}",
         LATEST ? "neil1145/cloudflared:latest" : "",
         LATEST ? "ghcr.io/neil1145/cloudflared:latest" : "",
+        LATEST ? "harbor.marelmoras.in/cloudflared/cloudflared:latest" : "",
     ]
 }
