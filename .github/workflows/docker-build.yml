@@ -29,9 +29,10 @@ jobs:
         name: Bake image
         uses: docker/bake-action@v6
         env:
-          MULTI_PLATFORM: true
+          MULTI_PLATFORM: false  # Single platform for faster testing
+          TAG_SUFFIX: -test       # Adds -test to image tags only
         with:
-          push: ${{ github.ref == 'refs/heads/main' }}
+          push: true  # TEMPORARILY ENABLE PUSH FOR TESTING
           set: |
             *.cache-from=type=gha
             *.cache-to=type=gha,mode=max
