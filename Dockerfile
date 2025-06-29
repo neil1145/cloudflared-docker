@@ -4,6 +4,7 @@ ARG ALPINEVERSION
 
 FROM --platform=${BUILDPLATFORM} \
     golang:$GOVERSION-alpine${ALPINEVERSION} AS build
+LABEL org.opencontainers.image.source="https://github.com/neil1145/cloudflared-docker"
 
 WORKDIR /src
 RUN apk --no-cache add git build-base bash
