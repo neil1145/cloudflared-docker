@@ -29,7 +29,7 @@ For more information, please refer to <https://unlicense.org>
 
 The generated and public Docker images are subject to the license of the cloudflared software, available for reference here: https://github.com/cloudflare/cloudflared/blob/master/LICENSE
 
-At the time of writing, that licence is Apache 2.0 so it is includeed below for reference:
+At the time of writing, that licence is Apache 2.0 so it is included below for reference:
 
 ```
 
