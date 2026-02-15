@@ -1,5 +1,5 @@
 variable "CLOUDFLARED_VERSION" {
-    default = "2025.4.2"
+    default = "2026.1.2"
 }
 
 variable "LATEST" {
@@ -11,11 +11,11 @@ variable "MULTI_PLATFORM" {
 }
 
 variable "GOVERSION" {
-    default = "1.23.9"
+    default = "1.25.6"
 }
 
 variable "ALPINEVERSION" {
-    default = "3.21"
+    default = "3.23"
 }
 
 target "default" {
