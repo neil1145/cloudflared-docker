@@ -2,8 +2,8 @@
 
 This repository contains a simple Dockerfile to build `cloudflared`, the client for [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps), from [source](https://github.com/cloudflare/cloudflared).
 
-> **Note**\
-> This Docker image is not an official Cloudflare product.
+> [!NOTE]
+> This Docker image is **not** an official Cloudflare product.
 
 The aim is to support multiple architectures.  
 The public image currently supports:
@@ -14,7 +14,7 @@ The public image currently supports:
 | `linux/386`    | `x86`         | 32-bit Intel/AMD CPUs. Typically really old computer hardware. These images are **untested**.                 |
 | `linux/arm64`  | `aarch64`     | 64-bit ARM hardware. For example Apple Silicon or Raspberry Pi 2/3/4 running a 64-bit OS.                     |
 | `linux/arm/v7` | `armhf`       | 32-bit ARM hardware. For example most Raspberry Pi models running Raspberry Pi OS.                            |
-| `linux/arm/v6` | `armel`       | Older 32-bit ARM hardware. Mostly Raspberry Pi 1/0/0W but there may be others. These images are **untested**. |
+| `linux/arm/v6` | `armel`       | Older 32-bit ARM hardware. Mostly Raspberry Pi 1/0/0W but there may be others.                                |
 | `linux/s390x`  | `IBM Z`       | [Linux on IBM Z](https://en.wikipedia.org/wiki/Linux_on_IBM_Z) for IBM mainframes, most notably [IBM Cloud](https://www.ibm.com/uk-en/cloud). |
 | `linux/ppc64le` | `ppc64el`     | Tested on [IBM Cloud Power Systems Virtual Server](https://www.ibm.com/uk-en/products/power-virtual-server)
 | `linux/riscv64` | `riscv64`     | CPUs from the future. Tested on [Scaleway Labs RV1](https://labs.scaleway.com/en/em-rv1/).
@@ -22,9 +22,6 @@ The public image currently supports:
 The public image corresponding to this Dockerfile is `neil1145/cloudflared` and should work in mostly the same way as the [official image](https://hub.docker.com/r/cloudflare/cloudflared).
 
 ## Cloudflare Tunnel
-
-> **Warning**   
-> Legacy Tunnels are unsupported. You should migrate all existing legacy tunnels to Named Tunnels.
 
 ### Dashboard setup (Recommended)
 A  `docker-compose` example with a Zero Trust dashboard setup would be:
@@ -52,7 +49,7 @@ An example for a setup with a local config would be:
 services:
   cloudflared:
     image: neil1145/cloudflared
-    restart: unless-stopped
+    restart: unless-stopped # or 'always' to survive container stops
     volumes:
       - ./cloudflared:/etc/cloudflared
     command: tunnel run mytunnel
@@ -101,7 +98,7 @@ Which will start up a "Hello world" test tunnel on `https://test.example.com`.
 While not the original intent behind the image, you can also use this to host a DNS resolver that speaks to a DNS-over-HTTPS backend.  
 For example:
 ```
-docker run -d -p 53:53/udp --name my-dns-forwarder neil1145/cloudflared proxy-dns
+docker run -d -p 53:53/udp --name my-dns-forwarder neil1145/cloudflared proxy-dns --address 0.0.0.0
 ```
 Would create a container called `my-dns-forwarder` that responds to DNS requests on your host.  
 Keep in mind when using this on a public server (e.g. VPS) it will by default listen on all interfaces, making you a public DNS resolver on the internet.  

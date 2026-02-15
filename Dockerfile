@@ -1,10 +1,9 @@
 # Build container
-ARG GOVERSION=1.23
+ARG GOVERSION=1.25
 ARG ALPINEVERSION
 
 FROM --platform=${BUILDPLATFORM} \
     golang:$GOVERSION-alpine${ALPINEVERSION} AS build
-LABEL org.opencontainers.image.source="https://github.com/neil1145/cloudflared-docker"
 
 WORKDIR /src
 RUN apk --no-cache add git build-base bash
@@ -14,7 +13,6 @@ ENV GO111MODULE=on \
 
 ARG VERSION=master
 RUN git clone https://github.com/cloudflare/cloudflared --depth=1 --branch ${VERSION} .
-RUN bash -x .teamcity/install-cloudflare-go.sh
 
 # From this point on, step(s) are duplicated per-architecture
 ARG TARGETOS
